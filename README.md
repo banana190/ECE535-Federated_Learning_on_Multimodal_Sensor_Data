@@ -1,77 +1,54 @@
-This repository contains the source code and data of the paper [Multimodal
-Federated Learning on IoT Data](https://arxiv.org/abs/2109.04833).
+# ECE535-Federated_Learning_on_Multimodal_Sensor_Data
 
-# Directory structure
-* *src*: source code
-* *data*: pre-processed data
-* *config*: configuration files for experiments
-* *sub*: pbs files for job submissions to clusters
-* *results*: experimental results
-* *plots*: data visualizations of results
+## Motivation: 
 
-# Prerequisites
-To fully re-produce the results and plots in the paper, please use the provided
-configuration files to run replicates of individual experiments in parallel on a
-cluster that supports MPI. On your cluster, you need following modules available
-to support the experiments.
+Nowadays, ML have become a basic method to implement ideas we have created. With a tremendous dataset, machine learning can be extremely powerful then any traditional designing. 
 
-* Anaconda 3
-* Python 3.7+
-* Pytorch 1.8+
-* Torchvision 0.9+
-* Numpy 1.19+
-* Matplotlib 3.3+
-* Scipy 1.4+
-* MPI for Python 3.0+
+we usually have not enough calculation powers to train such a huge model on our computer. The most we will do is cloud computing. However, these dataset might be sensitive, we cannot leak these documents and we have no idea if the server is safe enough as they said.
 
-# Pre-processed data
-The *data* directory contains the pre-processed data for the experiments. You can download the data in *.mat* files from https://drive.google.com/drive/folders/1rWJYkfMavGs1F-H0jykJ5V0fIiwrQdJV?usp=sharing.
-You can also generate the pre-processed data from the original datasets.
+Federated can avoid the privacy problem and also save the transmission time since we won’t download or upload all the files to train.
 
-## For the Opp dataset
-1. Download the dataset publicly available at
-    http://www.opportunity-project.eu/system/files/Challenge/OpportunityChallengeLabeled.zip.
-2. Extract all the *.dat* files into the *data/opp* directory.
-3. Uncomment the `# gen_opp("data")` in `utils.py` and run `python3 src/utils.py` (it will take a few minutes).
-4. Once it's completed, you should find a generated **opp.mat** file in *data/opp/*.
 
-## For the mHealth dataset
-1. Download the dataset publicly available at
-https://archive.ics.uci.edu/ml/machine-learning-databases/00319/MHEALTHDATASET.zip.
-2. Extract all the *.log* files into the *data/mhealth* directory.
-3. Uncomment the `# gen_mhealth("data")` in `utils.py` and run `python3 src/utils.py` (it will take a few minutes).
-4. Once it's completed, you should find a generated **mhealth.mat** file in *data/mhealth/*.
+## Deliverables:
 
-## For the UR Fall dataset
-1. Uncomment the `# download_UR_fall()` and `# gen_ur_fall("data")` in the `utils.py`.
-2. Run `python3 src/utils.py` to download the raw data and generate the pre-processed data (it will take a few minutes).
-3. Once it's completed, you should find a generated **ur_fall.mat** file in *data/mhealth/*.
+Understand multimodal federated learning in :  [code](github.com/yuchenzhao/iotdi22-mmfl)
 
-# Configuration files
-The *config/* directory contains the configuration files of experiments. Each
-file describes the parameters of one individual experiment. The
-**config/config_example** file contains the explanations of all the parameters.
+Use given datasets to reproduce the results in the paper : [data](https://drive.google.com/drive/folders/1rWJYkfMavGs1F-H0jykJ5V0fIiwrQdJV)
 
-# Job submission files
-The *sub/* directory contains the job submission files to HPC clusters. Each
-file uses `mpirun` to run 64 replicates of simulation using a specific
-configuration file. You may need to adjust the walltime, number of nodes and
-CPUs, and size of memory according to the policy of your clusters (i.e., the
-first 3 lines). It uses `module load` to load an Anaconda3 module named as
-"anaconda3/personal" and an MPI module named as "mpi" for simulations. Change
-them to suit your cluster's environment, if necessary. The \$PBS_O_WORKDIR\$ is
-the absolute path of the current working directory of the `qsub` utility
-process.
+Perform a per-class accuracy analysis of the results and observe the effect of skewed data 
+distribution on the per-class accuracy
 
-# Instructions
-1. Create a conda environment (with Python 3.7+) named as **deep-learning** on
-your HPC cluster.
-2. Install pytorch, torchvision, numpy, matplotlib, scipy, and mpi4py in your
-**deep-learning** environment.
-3. Use the provided *.sh* files to run groups of experiments. For
-example, the exp_opp.sh will use `qsub` to submit all the pbs files of the Opp
-experiments to the queue system of your cluster.
-4. With the provided configuration files, the results will be output in the
-*results/* directory.
-5. Once ALL experiments are completed, run `python3 src/analysis.py` to output
-data visualizations of the results into the *plots/* directory.
+Evaluate the system on a multimodal dataset that is relatively balanced in class distribution
+
+## System blocks:
+
+[Setup system] -> [Augmentation] -> [Train and Test] <-> [Adjusting Hyperparameter] --------> [Analyzing the result]  
+
+## Software requirements: 
+
+CUDA GPU, Python   
+
+team members responsibilities:
+Chun Wei: Environment setup, coding, writing.
+Tao Hua: Data Augmentation, coding, writing.
+
+
+## Project timeline:
+TBD
+
+## Goal
+
+Understand and benchmark different multimodal datasets in a federated setting
+
+## references:
+[Multimodal Federated Learning on IOT Data](https://pure-research.york.ac.uk/ws/portalfiles/portal/)  
+[Communication-Efficient learning of deep networks from decentralized data](http://proceedings.mlr.press/v54/mcmahan17a/mcmahan17a.pdf)
+
+
+## How to use
+
+Use the batch files.
+
+The result will generate in \result
+
+To plot them, run analysis.py
