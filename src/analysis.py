@@ -178,8 +178,8 @@ def single_multi_modality_comparison():
                         "--" if color_idx == 0 else (0, (5, 10)))
                     test_acc = []
                     for rep in range(N_REPS):
-                        rep_file = os.path.join("results", dataset.lower(
-                        ), ae, f"{modalities[0]}_{modalities[1]}", schemes[k], f"rep_{rep}", "results.txt")
+                        rep_file = os.path.join("D:\ML\iotdi22-mmfl-main\\results", dataset.lower(
+                        ), ae, f"{modalities[0]}_{modalities[1]}", schemes[k], "results.txt")
                         data = np.loadtxt(rep_file, delimiter=",")
                         x_all = data[:, 0]
                         idxs_round_cut = x_all <= ROUND_CUT[dataset]["single"]
@@ -261,10 +261,10 @@ def cross_modality_comparison():
                         for rep in range(N_REPS):
                             if "ablation" not in k:
                                 rep_file = os.path.join(
-                                    "results", dataset.lower(), ae, f"{modalities[0]}_{modalities[1]}", schemes[k][1], f"rep_{rep}", "results.txt")
+                                    "D:\ML\iotdi22-mmfl-main\\results", dataset.lower(), ae, f"{modalities[0]}_{modalities[1]}", schemes[k][1], "results.txt")
                             else:
                                 rep_file = os.path.join(
-                                    "results", dataset.lower(), "ablation", f"{modalities[0]}_{modalities[1]}", schemes[k][1], f"rep_{rep}", "results.txt")
+                                    "D:\ML\iotdi22-mmfl-main\\results", dataset.lower(), "ablation", f"{modalities[0]}_{modalities[1]}", schemes[k][1], "results.txt")
                             data = np.loadtxt(rep_file, delimiter=",")
                             x_all = data[:, 0]
                             idxs_round_cut = x_all <= ROUND_CUT[dataset]["cross"]

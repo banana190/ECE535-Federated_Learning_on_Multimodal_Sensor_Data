@@ -262,4 +262,5 @@ class Server:
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
 
-        return np.mean(win_loss), np.mean(win_accuracy), np.mean(win_weighted_f1)
+        #return np.mean(win_loss), np.mean(win_accuracy), np.mean(win_weighted_f1) wtf is win_weighted_f1
+        return np.mean(win_loss), np.mean(win_accuracy), np.mean(win_f1)

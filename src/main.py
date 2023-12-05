@@ -3,8 +3,8 @@ import argparse
 import logging
 import os
 import warnings
-import torch
 from mpi4py import MPI
+import torch
 from fl import FL
 
 

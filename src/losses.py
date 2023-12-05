@@ -46,8 +46,10 @@ class DCCLoss():
         # assert torch.isnan(SigmaHat22).sum().item() == 0
 
         # Calculating the root inverse of covariance matrices by using eigen decomposition
-        [D1, V1] = torch.symeig(SigmaHat11, eigenvectors=True)
-        [D2, V2] = torch.symeig(SigmaHat22, eigenvectors=True)
+        #[D1, V1] = torch.symeig(SigmaHat11, eigenvectors=True)#replace since pytorch 2.1 has no torch.symeig
+        #[D2, V2] = torch.symeig(SigmaHat22, eigenvectors=True)
+        [D1, V1] = torch.linalg.eigh(SigmaHat11)
+        [D2, V2] = torch.linalg.eigh(SigmaHat22)
         # assert torch.isnan(D1).sum().item() == 0
         # assert torch.isnan(D2).sum().item() == 0
         # assert torch.isnan(V1).sum().item() == 0
@@ -83,7 +85,7 @@ class DCCLoss():
             # regularization for more stability
             trace_TT = torch.add(trace_TT, (torch.eye(
                 trace_TT.shape[0])*r1).to(self.device))
-            U, V = torch.symeig(trace_TT, eigenvectors=True)
+            U, V = torch.linalg.eigh(trace_TT)
             U = torch.where(U > eps, U, (torch.ones(
                 U.shape).double()*eps).to(self.device))
             U = U.topk(self.outdim_size)[0]
